@@ -112,6 +112,8 @@ function startPassword(username) {
         min += range;
     }
 
+    document.getElementById("progress").max = "10000"
+
     for (var i = 0; i < count; i++) {
         workers.push(new Worker("worker.js"));
         workers[i].onmessage = function(e) {
@@ -152,11 +154,13 @@ function startUsername(username) {
 
     var count = parseInt(document.getElementById("workers-count").item(document.getElementById("workers-count").selectedIndex).textContent);
     var min = 0;
-    var range = 10000 / count;
+    var range = 1000 / count;
     for (var i = 0; i < count; i++) {
         rangeList[i] = [min, min + range - 1];
         min += range;
     }
+
+    document.getElementById("progress").max = "1000"
 
     for (var i = 0; i < count; i++) {
         workers.push(new Worker("usernameWorker.js"));
@@ -171,7 +175,7 @@ function startUsername(username) {
                     el.terminate();
                 });
                 document.getElementById("passwd-found").textContent = e.data[1]
-                document.getElementById("progress").value = 10000;
+                document.getElementById("progress").value = 1000;
 
                 
                 document.getElementById("username").removeAttribute("disabled");
